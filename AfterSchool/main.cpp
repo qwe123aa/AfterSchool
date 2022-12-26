@@ -7,7 +7,7 @@ int main(void)
 {
 	// 윈도창 생성
 	RenderWindow window(VideoMode(640, 480), "AfterSchool");
-
+	window.setFramerateLimit(60);
 
 	RectangleShape player;
 	player.setSize(Vector2f(40, 40));
@@ -27,6 +27,23 @@ int main(void)
 			case Event::Closed:
 				window.close();		// 윈도를 닫는다
 			}
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Left))
+		{
+			player.move(-1, 0);
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::Right))
+		{
+			player.move(1, 0);
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::Up))
+		{
+			player.move(0, -1);
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::Down))
+		{
+			player.move(0, 1);
 		}
 
 

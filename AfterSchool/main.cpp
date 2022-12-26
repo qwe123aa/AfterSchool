@@ -8,6 +8,13 @@ int main(void)
 	// 윈도창 생성
 	RenderWindow window(VideoMode(640, 480), "AfterSchool");
 
+
+	RectangleShape player;
+	player.setSize(Vector2f(40, 40));
+	player.setPosition(100, 100);
+	
+	
+
 	// 윈도가 열려있을 때까지 반복
 	while (window.isOpen())
 	{
@@ -21,6 +28,9 @@ int main(void)
 				window.close();		// 윈도를 닫는다
 			}
 		}
+
+		window.draw(player);
+		window.display();
 	}
 
 	return 0;

@@ -12,7 +12,7 @@ int main(void)
 	RectangleShape player;
 	player.setSize(Vector2f(40, 40));
 	player.setPosition(100, 100);
-	
+	player.setFillColor(Color::Red);
 	
 
 	// 윈도가 열려있을 때까지 반복
@@ -29,7 +29,9 @@ int main(void)
 			}
 		}
 
+
 		window.draw(player);
+
 		window.display();
 	}
 

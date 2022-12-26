@@ -34,15 +34,15 @@ int main(void)
 		{
 			player.move(-player_speed, 0);
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::Right))
+		if (Keyboard::isKeyPressed(Keyboard::Right))
 		{
 			player.move(player_speed, 0);
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::Up))
+		if (Keyboard::isKeyPressed(Keyboard::Up))
 		{
 			player.move(0, -player_speed);
 		}
-		else if (Keyboard::isKeyPressed(Keyboard::Down))
+		if (Keyboard::isKeyPressed(Keyboard::Down))
 		{
 			player.move(0, player_speed);
 		}

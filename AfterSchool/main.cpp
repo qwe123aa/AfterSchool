@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 #include <time.h>
+#include <SFML/Audio.hpp>
 
 using namespace sf;
 
@@ -13,18 +14,21 @@ int main(void)
 
 	srand(time(0));
 
+	long start_time = clock();	// 게임 시작시간
+	long spent_time;			// 게임 진행시간
 
+	// text
 	Font font;
 	font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf");
 	
 	Text text;
 	text.setFont(font);
-	text.setCharacterSize(50);		// 글자크기 조절
+	text.setCharacterSize(30);		// 글자크기 조절
 	text.setFillColor(Color(255, 255, 255));
 	text.setPosition(0, 0);
 	char info[40];
 
-
+	// 플레이어
 	RectangleShape player;
 	player.setSize(Vector2f(40, 40));
 	player.setPosition(100, 100);
@@ -32,9 +36,15 @@ int main(void)
 	int player_speed = 5;
 	int player_score = 0;
 
+	// 적(enemy)
 	RectangleShape enemy[5];
 	int enemy_life[5];
 	int enemy_score = 100;		// 적을 잡을 때 얻는 점수
+	SoundBuffer enemy_explosion_buffer;
+	enemy_explosion_buffer.loadFromFile("./resources/sounds/rumble.flac");
+	Sound enemy_explosion_sound;
+	enemy_explosion_sound.setBuffer(enemy_explosion_buffer);
+	
 	// enemy 초기화
 	for (int i = 0; i < 5; i++)
 	{
@@ -77,6 +87,8 @@ int main(void)
 			}
 		}
 
+		spent_time = clock() - start_time;
+
 		// 방향키 start
 		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
@@ -106,11 +118,18 @@ int main(void)
 					printf("enemy[%d]과 충돌\n", i);
 					enemy_life[i] -= 1;
 					player_score += enemy_score;
+					
+					// TODO : 코드 refactoring 필요
+					if (enemy_life[i] == 0)
+					{
+						enemy_explosion_sound.play();
+					}
 				}
 			}
 		}
 		
-		sprintf(info, "score : %d\n", player_score);
+		sprintf(info, "score:%d time:%d"
+			, player_score, spent_time/1000);
 		text.setString(info);
 
 		window.clear(Color::Black);

@@ -44,9 +44,10 @@ int main(void)
 	int player_score = 0;
 
 	// 적(enemy)
-	const int ENEMY_NUM = 7;
+	const int ENEMY_NUM = 10;
 	RectangleShape enemy[ENEMY_NUM];
 	int enemy_life[ENEMY_NUM];
+	int enemy_speed[ENEMY_NUM];
 	int enemy_score = 100;		// 적을 잡을 때 얻는 점수
 	SoundBuffer enemy_explosion_buffer;
 	enemy_explosion_buffer.loadFromFile("./resources/sounds/rumble.flac");
@@ -60,6 +61,7 @@ int main(void)
 		enemy[i].setFillColor(Color::Yellow);
 		enemy_life[i] = 1;
 		enemy[i].setPosition(rand()%300+300, rand()%380);
+		enemy_speed[i] = -(rand() % 10 + 1);
 	}
 	
 
@@ -87,6 +89,7 @@ int main(void)
 						enemy[i].setFillColor(Color::Yellow);
 						enemy_life[i] = 1;
 						enemy[i].setPosition(rand() % 300 + 300, rand() % 380);
+						enemy_speed[i] = -(rand() % 10 + 1);
 					}
 				}
 				break;
@@ -116,11 +119,12 @@ int main(void)
 		}	// 방향키 end
 
 
-		// enemy와의 충돌
+		
 		for (int i = 0; i < ENEMY_NUM; i++)
 		{
 			if (enemy_life[i] > 0)
 			{
+				// enemy와의 충돌
 				if (player.getGlobalBounds().intersects(enemy[i].getGlobalBounds()))
 				{
 					printf("enemy[%d]과 충돌\n", i);
@@ -133,6 +137,7 @@ int main(void)
 						enemy_explosion_sound.play();
 					}
 				}
+				enemy[i].move(enemy_speed[i], 0);
 			}
 		}
 		

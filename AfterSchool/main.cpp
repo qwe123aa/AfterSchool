@@ -42,6 +42,24 @@ int main(void)
 				// 종료(x) 버튼을 누르면 Event::Closed(0)
 			case Event::Closed:
 				window.close();		// 윈도를 닫는다
+				break;
+				// 키보드를 눌렀을 때(누른 순간만을 감지)
+			case Event::KeyPressed:
+			{
+				// 스페이스 키 누르면 모든 enemy 다시 출현
+				if (event.key.code == Keyboard::Space)
+				{
+					for (int i = 0; i < 5; i++)
+					{
+						enemy[i].setSize(Vector2f(70, 70));
+						enemy[i].setFillColor(Color::Yellow);
+						enemy_life[i] = 1;
+						enemy[i].setPosition(rand() % 300 + 300, rand() % 380);
+					}
+				}
+				break;
+			}
+
 			}
 		}
 
@@ -62,21 +80,6 @@ int main(void)
 		{
 			player.move(0, player_speed);
 		}	// 방향키 end
-
-
-
-		// 스페이스 키 누르면 모든 enemy 다시 출현
-		// TODO : 한 번 누를 때, 한 번만 적용하기
-		if (Keyboard::isKeyPressed(Keyboard::Space))
-		{
-			for (int i = 0; i < 5; i++)
-			{
-				enemy[i].setSize(Vector2f(70, 70));
-				enemy[i].setFillColor(Color::Yellow);
-				enemy_life[i] = 1;
-				enemy[i].setPosition(rand() % 300 + 300, rand() % 380);
-			}
-		}
 
 
 		// enemy와의 충돌

@@ -22,7 +22,7 @@ int main(void)
 	text.setCharacterSize(50);		// 글자크기 조절
 	text.setFillColor(Color(255, 255, 255));
 	text.setPosition(0, 0);
-	text.setString("score");
+	char info[40];
 
 
 	RectangleShape player;
@@ -110,7 +110,8 @@ int main(void)
 			}
 		}
 		
-		printf("score : %d\n", player_score);
+		sprintf(info, "score : %d\n", player_score);
+		text.setString(info);
 
 		window.clear(Color::Black);
 

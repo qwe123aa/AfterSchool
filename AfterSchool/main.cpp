@@ -41,6 +41,14 @@ int main(void)
 	long spent_time;			// 게임 진행시간
 	int is_gameover = 0;
 
+	// BGM
+	SoundBuffer BGM_buffer;
+	BGM_buffer.loadFromFile("./resources/sounds/bgm.ogg");
+	Sound BGM_sound;
+	BGM_sound.setBuffer(BGM_buffer);
+	BGM_sound.setLoop(1);		// BGM 무한반복
+	BGM_sound.play();
+
 	// text
 	Font font;
 	font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf");

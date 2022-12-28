@@ -31,6 +31,12 @@ struct Enemy {
 	int respawn_time;
 };
 
+struct Textures {
+	Texture bg;			// 배경 이미지
+	Texture gameover;	// 게임오버 이미지
+	Texture player;		// 플레이어 이미지
+};
+
 // obj1과 obj2의 충돌여부. 충돌하면 1을 반환, 충돌안하면 0을 반환
 int is_collide(RectangleShape obj1, RectangleShape obj2)
 {
@@ -45,6 +51,11 @@ const int GO_WIDTH = 320, GO_HEIGHT = 240;	// 게임오버 그림의 크기
 
 int main(void)
 {
+	struct Textures t;
+	t.bg.loadFromFile("./resources/images/background.jpg");
+	t.gameover.loadFromFile("./resources/images/gameover.png");
+	t.player.loadFromFile("./resources/images/player.png");
+
 	// 윈도창 생성
 	RenderWindow window(VideoMode(W_WIDTH, W_HEIGHT), "AfterSchool");
 	window.setFramerateLimit(60);
@@ -75,26 +86,22 @@ int main(void)
 	char info[40];
 
 	// 배경
-	Texture bg_texture;
-	bg_texture.loadFromFile("./resources/images/background.jpg");
 	Sprite bg_sprite;
-	bg_sprite.setTexture(bg_texture);
+	bg_sprite.setTexture(t.bg);
 	bg_sprite.setPosition(0, 0);
 
 	// gameover
-	Texture gameover_texture;
-	gameover_texture.loadFromFile("./resources/images/gameover.png");
 	Sprite gameover_sprite;
-	gameover_sprite.setTexture(gameover_texture);
+	gameover_sprite.setTexture(t.gameover);
 	gameover_sprite.setPosition((W_WIDTH-GO_WIDTH)/2, (W_HEIGHT-GO_HEIGHT)/2);
 
 	// 플레이어
 	struct Player player;
-	player.sprite.setSize(Vector2f(40, 40));
+	player.sprite.setTexture(&t.player);
 	player.sprite.setPosition(100, 100);
+	player.sprite.setSize(Vector2f(175, 105));
 	player.x = player.sprite.getPosition().x;
 	player.y = player.sprite.getPosition().y;
-	player.sprite.setFillColor(Color::Red);
 	player.speed = 5;
 	player.score = 0;
 	player.life = 10;

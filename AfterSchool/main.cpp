@@ -209,10 +209,8 @@ int main(void)
 
 			if (enemy[i].life > 0)
 			{
-				// TODO : 총알이 관통하는 버그를 수정할 것
-				// enemy와의 충돌
-				if (is_collide(player.sprite, enemy[i].sprite) ||
-					is_collide(bullet.sprite, enemy[i].sprite))
+				// player, enemy 충돌
+				if (is_collide(player.sprite, enemy[i].sprite))
 				{
 					enemy[i].life -= 1;
 					player.score += enemy[i].score;
@@ -228,6 +226,20 @@ int main(void)
 				{
 					player.life -= 1;
 					enemy[i].life = 0;
+				}
+
+				// 총알과 enemy의 충돌
+				if (is_collide(bullet.sprite, enemy[i].sprite))
+				{
+					enemy[i].life -= 1;
+					player.score += enemy[i].score;
+
+					// TODO : 코드 refactoring 필요
+					if (enemy[i].life == 0)
+					{
+						enemy[i].explosion_sound.play();
+					}
+					bullet.is_fired = 0;
 				}
 
 				enemy[i].sprite.move(enemy[i].speed, 0);

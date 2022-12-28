@@ -24,7 +24,7 @@ struct Enemy {
 
 // 전역변수
 const int ENEMY_NUM = 10;					// enemy의 최대개수
-const int W_WIDTH = 640, W_HEIGHT = 480;	// 창의 크기
+const int W_WIDTH = 1200, W_HEIGHT = 600;	// 창의 크기
 const int GO_WIDTH = 320, GO_HEIGHT = 240;	// 게임오버 그림의 크기
 
 
@@ -87,7 +87,7 @@ int main(void)
 
 		enemy[i].sprite.setSize(Vector2f(70, 70));
 		enemy[i].sprite.setFillColor(Color::Yellow);
-		enemy[i].sprite.setPosition(rand()%300+300, rand()%380);
+		enemy[i].sprite.setPosition(rand()%300+W_WIDTH*0.9, rand()%380);
 		enemy[i].life = 1;
 		enemy[i].speed = -(rand() % 10 + 1);
 	}
@@ -115,7 +115,7 @@ int main(void)
 					{
 						enemy[i].sprite.setSize(Vector2f(70, 70));
 						enemy[i].sprite.setFillColor(Color::Yellow);
-						enemy[i].sprite.setPosition(rand() % 300 + 300, rand() % 380);
+						enemy[i].sprite.setPosition(rand() % 300 + W_WIDTH * 0.9, rand() % 380);
 						enemy[i].life = 1;
 						enemy[i].speed = -(rand() % 10 + 1);
 					}
@@ -199,6 +199,7 @@ int main(void)
 		if (is_gameover)
 		{
 			window.draw(gameover_sprite);
+			// TODO : 게임이 멈추는 것을 구현할 것
 		}
 
 		window.display();

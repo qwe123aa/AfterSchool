@@ -20,6 +20,7 @@ struct Enemy {
 	int score;
 	SoundBuffer explosion_buffer;
 	Sound explosion_sound;
+	int respawn_time;
 };
 
 // 전역변수
@@ -72,7 +73,7 @@ int main(void)
 	player.sprite.setFillColor(Color::Red);
 	player.speed = 5;
 	player.score = 0;
-	player.life = 3;
+	player.life = 10;
 
 	// 적(enemy)
 	struct Enemy enemy[ENEMY_NUM];
@@ -84,6 +85,7 @@ int main(void)
 		enemy[i].explosion_buffer.loadFromFile("./resources/sounds/rumble.flac");
 		enemy[i].explosion_sound.setBuffer(enemy[i].explosion_buffer);
 		enemy[i].score = 100;
+		enemy[i].respawn_time = 8;
 
 		enemy[i].sprite.setSize(Vector2f(70, 70));
 		enemy[i].sprite.setFillColor(Color::Yellow);
@@ -147,9 +149,19 @@ int main(void)
 		}	// 방향키 end
 
 
-		
 		for (int i = 0; i < ENEMY_NUM; i++)
 		{
+			// 10초마다 enemy가 젠
+			if (spent_time % (1000*enemy[i].respawn_time) < 1000 / 60 + 1)
+			{
+				enemy[i].sprite.setSize(Vector2f(70, 70));
+				enemy[i].sprite.setFillColor(Color::Yellow);
+				enemy[i].sprite.setPosition(rand() % 300 + W_WIDTH * 0.9, rand() % 380);
+				enemy[i].life = 1;
+				// 10초마다 enemy의 속도+1
+				enemy[i].speed = -(rand() % 10 + 1 + (spent_time/1000/enemy[i].respawn_time));
+			}
+
 			if (enemy[i].life > 0)
 			{
 				// enemy와의 충돌

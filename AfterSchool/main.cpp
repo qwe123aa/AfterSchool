@@ -33,6 +33,7 @@ struct Enemy {
 
 struct Textures {
 	Texture bg;			// 배경 이미지
+	Texture enemy;		// 적 이미지
 	Texture gameover;	// 게임오버 이미지
 	Texture player;		// 플레이어 이미지
 };
@@ -53,8 +54,10 @@ int main(void)
 {
 	struct Textures t;
 	t.bg.loadFromFile("./resources/images/background.jpg");
+	t.enemy.loadFromFile("./resources/images/enemy.png");
 	t.gameover.loadFromFile("./resources/images/gameover.png");
 	t.player.loadFromFile("./resources/images/player.png");
+
 
 	// 윈도창 생성
 	RenderWindow window(VideoMode(W_WIDTH, W_HEIGHT), "AfterSchool");
@@ -125,7 +128,9 @@ int main(void)
 		enemy[i].score = 100;
 		enemy[i].respawn_time = 8;
 
-		enemy[i].sprite.setSize(Vector2f(70, 70));
+		enemy[i].sprite.setTexture(&t.enemy);
+		enemy[i].sprite.setSize(Vector2f(70, 90));
+		enemy[i].sprite.setScale(-1, 1);		// 좌우대칭
 		enemy[i].sprite.setFillColor(Color::Yellow);
 		enemy[i].sprite.setPosition(rand()%300+W_WIDTH*0.9, rand()%380);
 		enemy[i].life = 1;

@@ -175,6 +175,11 @@ int main(void)
 		player.x = player.sprite.getPosition().x;
 		player.y = player.sprite.getPosition().y;
 
+		if (player.life <= 0)
+		{
+			is_gameover = 1;
+		}
+
 
 		// 방향키 start
 		if (Keyboard::isKeyPressed(Keyboard::Left))
@@ -194,7 +199,21 @@ int main(void)
 			player.sprite.move(0, player.speed);
 		}	// 방향키 end
 
-		// 총알 발사
+		//player 이동범위 제한
+		if (player.x<0) {
+			player.sprite.setPosition(0, player.y);
+		}
+		else if (player.x > W_WIDTH) {
+			player.sprite.setPosition(W_WIDTH, player.y);
+		}
+		if (player.y<0) {
+			player.sprite.setPosition(player.x, 0);
+		}
+		if (player.y > W_HEIGHT) {
+			player.sprite.setPosition(player.x, W_HEIGHT);
+		}
+
+		//총알 발사
 		if (Keyboard::isKeyPressed(Keyboard::Space))
 		{
 			// 총알이 발사되어있지 않다면
@@ -204,7 +223,6 @@ int main(void)
 				bullet.is_fired = 1;
 			}
 		}
-
 
 		for (int i = 0; i < ENEMY_NUM; i++)
 		{
@@ -233,6 +251,9 @@ int main(void)
 						enemy[i].explosion_sound.play();
 					}
 				}
+
+				
+
 				// 적이 왼쪽 끝에 진입하려는 순간
 				else if (enemy[i].sprite.getPosition().x < 0)
 				{
@@ -266,11 +287,6 @@ int main(void)
 				bullet.is_fired = 0;
 		}
 
-		if (player.life <= 0)
-		{
-			is_gameover = 1;
-		}
-		
 
 		sprintf(info, "life:%d score:%d time:%d"
 			, player.life, player.score, spent_time/1000);

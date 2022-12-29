@@ -102,7 +102,7 @@ int main(void)
 	struct Player player;
 	player.sprite.setTexture(&t.player);
 	player.sprite.setPosition(100, 100);
-	player.sprite.setSize(Vector2f(175, 105));
+	player.sprite.setSize(Vector2f(120, 125));
 	player.x = player.sprite.getPosition().x;
 	player.y = player.sprite.getPosition().y;
 	player.speed = 5;
@@ -129,9 +129,9 @@ int main(void)
 		enemy[i].respawn_time = 8;
 
 		enemy[i].sprite.setTexture(&t.enemy);
-		enemy[i].sprite.setSize(Vector2f(70, 90));
+		enemy[i].sprite.setSize(Vector2f(150, 190));
 		enemy[i].sprite.setScale(-1, 1);		// ÁÂ¿ì´ëÄª
-		enemy[i].sprite.setFillColor(Color::Yellow);
+//		enemy[i].sprite.setFillColor(Color::Yellow);
 		enemy[i].sprite.setPosition(rand()%300+W_WIDTH*0.9, rand()%380);
 		enemy[i].life = 1;
 		enemy[i].speed = -(rand() % 10 + 1);
@@ -203,14 +203,14 @@ int main(void)
 		if (player.x<0) {
 			player.sprite.setPosition(0, player.y);
 		}
-		else if (player.x > W_WIDTH) {
-			player.sprite.setPosition(W_WIDTH, player.y);
+		else if (player.x > W_WIDTH - 120 ) {
+			player.sprite.setPosition(W_WIDTH - 120, player.y);
 		}
 		if (player.y<0) {
 			player.sprite.setPosition(player.x, 0);
 		}
-		if (player.y > W_HEIGHT) {
-			player.sprite.setPosition(player.x, W_HEIGHT);
+		if (player.y > W_HEIGHT - 125) {
+			player.sprite.setPosition(player.x, W_HEIGHT - 125);
 		}
 
 		//ÃÑ¾Ë ¹ß»ç
@@ -229,8 +229,8 @@ int main(void)
 			// 10ÃÊ¸¶´Ù enemy°¡ Á¨
 			if (spent_time % (1000*enemy[i].respawn_time) < 1000 / 60 + 1)
 			{
-				enemy[i].sprite.setSize(Vector2f(70, 70));
-				enemy[i].sprite.setFillColor(Color::Yellow);
+				enemy[i].sprite.setSize(Vector2f(150, 190));
+//				enemy[i].sprite.setFillColor(Color::Yellow);
 				enemy[i].sprite.setPosition(rand() % 300 + W_WIDTH * 0.9, rand() % 380);
 				enemy[i].life = 1;
 				// 10ÃÊ¸¶´Ù enemyÀÇ ¼Óµµ+1

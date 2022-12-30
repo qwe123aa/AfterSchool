@@ -13,6 +13,15 @@ int main(void) {
 	Vector2i mouse_pos;
 	int click_cnt = 0;
 
+	Font font;
+	font.loadFromFile("c:/windows/Fonts/arial.ttf");
+	Text text;
+	text.setFont(font);
+	text.setCharacterSize(30);
+	text.setFillColor(Color::White);
+	text.setPosition(0, 0);
+	char info[40];
+
 	while (window.isOpen()) {
 		mouse_pos = Mouse::getPosition(window);
 
@@ -24,19 +33,23 @@ int main(void) {
 					window.close();
 					break;
 				case Event :: MouseButtonPressed:
-					if (event.mouseButton.button == Mouse::Right) {
+					if (event.mouseButton.button == Mouse::Left) {
 						click_cnt++;
 					}
 			}
 
 		}
 
-		//마우스 누른 상태면 여러번 클릭됌
-		if (Mouse::isButtonPressed(Mouse::Left)) {
-			click_cnt++;
-		}
-		printf("(%d,%d)\n  클릭횟수 : %d\n", mouse_pos.x, mouse_pos.y, click_cnt);
+		sprintf(info, "(%d,%d)  clicks : %d\n", mouse_pos.x, mouse_pos.y, click_cnt);
+		text.setString(info);	
+		window.clear(Color::Black);
+
+		window.draw(text);
+
+		window.display();
+
 	}
+
 
 	return 0;
 }

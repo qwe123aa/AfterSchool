@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루�
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AfterSchool2", "AfterSchool2\AfterSchool2.vcxproj", "{4D5CC05E-0DA9-40DC-8D75-7A4F0A2FBF8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -36,6 +38,14 @@ Global
 		{EDF9A396-C46B-43E3-8C3D-A09943D4C499}.Release|x64.Build.0 = Release|x64
 		{EDF9A396-C46B-43E3-8C3D-A09943D4C499}.Release|x86.ActiveCfg = Release|Win32
 		{EDF9A396-C46B-43E3-8C3D-A09943D4C499}.Release|x86.Build.0 = Release|Win32
+		{4D5CC05E-0DA9-40DC-8D75-7A4F0A2FBF8E}.Debug|x64.ActiveCfg = Debug|x64
+		{4D5CC05E-0DA9-40DC-8D75-7A4F0A2FBF8E}.Debug|x64.Build.0 = Debug|x64
+		{4D5CC05E-0DA9-40DC-8D75-7A4F0A2FBF8E}.Debug|x86.ActiveCfg = Debug|Win32
+		{4D5CC05E-0DA9-40DC-8D75-7A4F0A2FBF8E}.Debug|x86.Build.0 = Debug|Win32
+		{4D5CC05E-0DA9-40DC-8D75-7A4F0A2FBF8E}.Release|x64.ActiveCfg = Release|x64
+		{4D5CC05E-0DA9-40DC-8D75-7A4F0A2FBF8E}.Release|x64.Build.0 = Release|x64
+		{4D5CC05E-0DA9-40DC-8D75-7A4F0A2FBF8E}.Release|x86.ActiveCfg = Release|Win32
+		{4D5CC05E-0DA9-40DC-8D75-7A4F0A2FBF8E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -26,11 +26,17 @@ struct Enemy {
 	int life;
 };
 
+enum item_type {
+	SPEED,
+	DELAY
+};
+
 struct Item {
 	RectangleShape sprite;
 	int delay;
 	int is_presented;		// 아이템이 떳는지?
 	long presented_time;
+	int type;
 };
 
 struct Textures {
@@ -164,12 +170,15 @@ int main(void)
 	struct Item item[ITEM_NUM];
 	item[0].sprite.setTexture(&t.item_speed);
 	item[0].delay = 25000;	// 25초
+	item[0].type = 0;
 	item[1].sprite.setTexture(&t.item_delay);
 	item[1].delay = 20000;
+	item[1].type = 1;
+	
 
 	for (int i = 0; i < ITEM_NUM; i++)
 	{
-		item[i].sprite.setSize(Vector2f(50, 50));
+		item[i].sprite.setSize(Vector2f(70, 70));
 		item[i].is_presented = 0;
 		item[i].presented_time = 0;
 	}
@@ -349,13 +358,26 @@ int main(void)
 				{
 					item[i].sprite.setPosition((rand() % W_WIDTH) * 0.8, (rand() % W_HEIGHT) * 0.8);
 					item[i].is_presented = 1;
-					item[i].presented_time = spent_time;
+//					item[i].presented_time = spent_time;
 				}
 			}
 
 			if (item[i].is_presented)
 			{
-				// TODO : 충돌 시 아이템 효과를 주고 사라진다
+				// 충돌 시 아이템 효과를 주고 사라진다
+				if (is_collide(player.sprite, item[i].sprite)) {
+					switch (item[i].type) {
+						case SPEED: 
+							player.speed += 3;
+							break;
+						case DELAY:
+							bullet_delay -= 100;
+							break;
+					}
+					item[i].is_presented = 0;
+					item[i].delay = spent_time;
+				}
+
 			}
 		}
 

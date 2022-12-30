@@ -11,6 +11,7 @@ int main(void) {
 	window.setFramerateLimit(60);
 
 	Vector2i mouse_pos;
+	int click_cnt = 0;
 
 	while (window.isOpen()) {
 		mouse_pos = Mouse::getPosition(window);
@@ -22,11 +23,19 @@ int main(void) {
 				case Event::Closed:
 					window.close();
 					break;
+				case Event :: MouseButtonPressed:
+					if (event.mouseButton.button == Mouse::Right) {
+						click_cnt++;
+					}
 			}
 
 		}
 
-		printf("(%d,%d)\n", mouse_pos.x, mouse_pos.y);
+		//마우스 누른 상태면 여러번 클릭됌
+		if (Mouse::isButtonPressed(Mouse::Left)) {
+			click_cnt++;
+		}
+		printf("(%d,%d)\n  클릭횟수 : %d\n", mouse_pos.x, mouse_pos.y, click_cnt);
 	}
 
 	return 0;

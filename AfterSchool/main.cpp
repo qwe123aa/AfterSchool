@@ -12,6 +12,7 @@ struct Player {
 	int score;
 	int life;
 	float x, y;		// ÇÃ·¹ÀÌ¾î ÁÂÇ¥
+	int speed_max;
 };
 
 // ÃÑ¾Ë
@@ -130,6 +131,7 @@ int main(void)
 	player.x = player.sprite.getPosition().x;
 	player.y = player.sprite.getPosition().y;
 	player.speed = 5;
+	player.speed_max = 9;
 	player.score = 0;
 	player.life = 10;
 
@@ -137,6 +139,7 @@ int main(void)
 	int bullet_speed = 20;
 	int bullet_idx = 0;
 	int bullet_delay = 500;		// µô·¹ÀÌ 0.5ÃÊ
+	int bullet_delay_max = 200;
 	Sound bullet_sound;
 	bullet_sound.setBuffer(sb.rumble);
 
@@ -368,10 +371,14 @@ int main(void)
 				if (is_collide(player.sprite, item[i].sprite)) {
 					switch (item[i].type) {
 						case SPEED: 
-							player.speed += 3;
+							if (player.speed <= player.speed_max) {
+								player.speed += 2;
+							}
 							break;
 						case DELAY:
-							bullet_delay -= 100;
+							if (bullet_delay >= bullet_delay_max) {
+								bullet_delay -= 50;
+							}
 							break;
 					}
 					item[i].is_presented = 0;
